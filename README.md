@@ -1,1 +1,1 @@
-# budget manager
+# budget generator
