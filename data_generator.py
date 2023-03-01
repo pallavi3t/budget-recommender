@@ -5,9 +5,14 @@ import random
 import csv
 import pandas
 
+# global variables
+SIZE_DATASET = 10
+DF_NUMBEO_LOCATION = pandas.read_csv('/Users/pallavitangirala/Documents/projects'
+                     '/budget-recommender/data/numbeo_col.csv')
+
 fake = Faker()
 
-
+# class for customizing income generation
 class IncomeProvider(BaseProvider):
 
     def annual_income(self):
@@ -49,51 +54,159 @@ class IncomeProvider(BaseProvider):
             generated_income = fake.random_int(830,0000,3212486)
         
         return generated_income
-
-"""
-generates weighted random income using annual_income func
-"""
+ 
 fake.add_provider(IncomeProvider)
-annual_income = fake.annual_income()
-print('Annual Income:', annual_income)
 
-# converting annual to monthly income 
-monthly_income = trunc(annual_income/12)
-print('Monthly Income:', monthly_income)
 
+# FUNCTIONS FOR DATA GEN
+
+def income_list_gen(count=SIZE_DATASET):
+    """
+    purpose: generates lists of random annual and monthly incomes
+    input: # of incomes to generate
+    output: list of annual incomes and list of monthly incomes
+    details: uses custom provider from faker to generate incomes
+    """
+    annual_out = []
+    monthly_out = []
+    for n in range (count):
+
+        # take annual from user 
+        annual_income= fake.annual_income()
+
+        # use monthly to aid in personal calculation of budget
+        monthly_income = trunc(fake.annual_income() / 12)
+
+        annual_out.append(annual_income)
+        monthly_out.append(monthly_income)
+
+        # print(annual_income, monthly_income)
+
+    return annual_out, monthly_out
+
+def location_index_list_gen(df=DF_NUMBEO_LOCATION, count=SIZE_DATASET):
+    """
+    purpose: generate list of random locations with lists of associated: 
+        cost of living index
+        rent index 
+        food index
+    input: # of locations and associated indices to generate
+    output: 4 lists of locations with associated 3 indicies
+    details: food index is average of grocery and restaurant index
+    """
+    location_out = []
+    col_index_out = []
+    rent_index_out = []
+    food_index_out = []
+
+    for n in range(count):
+        rand = fake.random_int(0, len(df.index))
+
+        location = df.loc[rand, 'City']
+        col_index = df.loc[rand, 'Cost of Living Index']
+        rent_index = df.loc[rand, 'Rent Index']
+        food_index = trunc((df.loc[rand, 'Groceries Index'] 
+              + df.loc[rand, 'Restaurant Price Index']) / 2)
+        
+        location_out.append(location)
+        col_index_out.append(col_index)
+        rent_index_out.append(rent_index)
+        food_index_out.append(food_index)
+
+        #print(location, col_index, rent_index, food_index)
+
+    return location_out, col_index_out, rent_index_out, food_index_out
+
+
+def priority_list_gen(count=SIZE_DATASET):
+    """
+    purpose: generates list of random priorities
+    input: # of priorites to generate
+    output: list of random priorities
+    details: priorities are identified by integer 1-3
+        high priority --> 1
+        medium priority --> 2
+        low priority --> 3
+    """
+    out = []
+    for n in range (count):
+        priority= fake.random_int(1,3)
+        out.append(priority)
+        # print(priority)
+
+    return out
+
+
+# GENERATING DATAFRAME
 
 """
-generates random location and associated:
-    - cost of living index
-    - rent index
-    - food index
-from numbeo_col.csv
+Generating pandas dataframe
+input: 
+output: 
+side effects:
 """
-df = pandas.read_csv('/Users/pallavitangirala/Documents/projects'
-                     '/budget-recommender/data/numbeo_col.csv')
-
-# generating random row number
-rand = fake.random_int(0, len(df.index))
-
-print('Location:', df.loc[rand, 'City'])
-
-print('Cost of Living Index:', 
-      df.loc[rand, 'Cost of Living Index'])
-
-print('Rent Index:', df.loc[rand, 'Rent Index'])
-
-# food index calculated as average of groceries and restaurant index 
-food_index = (df.loc[rand, 'Groceries Index'] 
-              + df.loc[rand, 'Restaurant Price Index']) / 2
-print('Food Index:', food_index)
+data = {'Annual Income':[],
+        'Monthly Income':[],
+        'Location':[],
+        'Cost of Living Index':[],
+        'Rent Index':[],
+        'Food Index':[],
+        'Housing Priority':[],
+        'Transportation Priority':[],
+        'Food Priority':[],
+        'Utility Priority':[],
+        'Healthcare Priority':[],
+        'Savings, Investments, Debt Payments Priority':[],
+        'Personal Spending Priority':[]}
 
 
-"""
-budget priority randomly ranked from 1 to 3 
-"""
-budget_categories = ['Housing & Utility', 'Transportation',
-                      'Food', 'Healthcare',
-                        'Savings, Investments & Debt Payments',
-                          'Personal Spending']
-for i in range(0,6):
-    print(budget_categories[i],":", fake.random_int(1,3))
+# EXPORTING TO CSV
+
+
+# CODE FOR TESTING DATA GEN OUTPUTS
+
+# """
+# generates weighted random income using annual_income func
+# """
+# annual_income = fake.annual_income()
+# print('Annual Income:', annual_income)
+
+# # converting annual to monthly income 
+# monthly_income = trunc(annual_income/12)
+# print('Monthly Income:', monthly_income)
+
+# """
+# generates random location and associated:
+#     - cost of living index
+#     - rent index
+#     - food index
+# from numbeo_col.csv
+# """
+# df = pandas.read_csv('/Users/pallavitangirala/Documents/projects'
+#                      '/budget-recommender/data/numbeo_col.csv')
+
+# # generating random row number
+# rand = fake.random_int(0, len(df.index))
+
+# print('Location:', df.loc[rand, 'City'])
+
+# print('Cost of Living Index:', 
+#       df.loc[rand, 'Cost of Living Index'])
+
+# print('Rent Index:', df.loc[rand, 'Rent Index'])
+
+# # food index calculated as average of groceries and restaurant index 
+# food_index = trunc((df.loc[rand, 'Groceries Index'] 
+#               + df.loc[rand, 'Restaurant Price Index']) / 2)
+# print('Food Index:', food_index)
+
+
+# """
+# budget priority randomly ranked from 1 to 3 
+# """
+# budget_categories = ['Housing', 'Transportation',
+#                       'Food', 'Utility', 'Healthcare',
+#                         'Savings, Investments & Debt Payments',
+#                           'Personal Spending'] # allow for one more goal
+# for i in range(0,7):
+#     print(budget_categories[i],"Priority:", fake.random_int(1,3))
