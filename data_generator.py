@@ -1,13 +1,11 @@
 from faker import Faker
 from faker.providers import BaseProvider
-from math import trunc
-import random
-import csv
-import pandas
+from math import floor
+import pandas as pd 
 
 # global variables
-SIZE_DATASET = 10
-DF_NUMBEO_LOCATION = pandas.read_csv('/Users/pallavitangirala/Documents/projects'
+SIZE_DATASET = 5
+DF_NUMBEO_LOCATION = pd.read_csv('/Users/pallavitangirala/Documents/projects'
                      '/budget-recommender/data/numbeo_col.csv')
 
 fake = Faker()
@@ -75,12 +73,12 @@ def income_list_gen(count=SIZE_DATASET):
         annual_income= fake.annual_income()
 
         # use monthly to aid in personal calculation of budget
-        monthly_income = trunc(fake.annual_income() / 12)
+        monthly_income = floor(fake.annual_income() / 12)
 
         annual_out.append(annual_income)
         monthly_out.append(monthly_income)
 
-        # print(annual_income, monthly_income)
+        #print(annual_income, monthly_income)
 
     return annual_out, monthly_out
 
@@ -105,7 +103,7 @@ def location_index_list_gen(df=DF_NUMBEO_LOCATION, count=SIZE_DATASET):
         location = df.loc[rand, 'City']
         col_index = df.loc[rand, 'Cost of Living Index']
         rent_index = df.loc[rand, 'Rent Index']
-        food_index = trunc((df.loc[rand, 'Groceries Index'] 
+        food_index = floor((df.loc[rand, 'Groceries Index'] 
               + df.loc[rand, 'Restaurant Price Index']) / 2)
         
         location_out.append(location)
@@ -132,36 +130,43 @@ def priority_list_gen(count=SIZE_DATASET):
     for n in range (count):
         priority= fake.random_int(1,3)
         out.append(priority)
-        # print(priority)
+        #print(priority)
 
     return out
 
 
-# GENERATING DATAFRAME
+# CREATE DATAFRAME
 
-"""
-Generating pandas dataframe
-input: 
-output: 
-side effects:
-"""
-data = {'Annual Income':[],
-        'Monthly Income':[],
-        'Location':[],
-        'Cost of Living Index':[],
-        'Rent Index':[],
-        'Food Index':[],
-        'Housing Priority':[],
-        'Transportation Priority':[],
-        'Food Priority':[],
-        'Utility Priority':[],
-        'Healthcare Priority':[],
-        'Savings, Investments, Debt Payments Priority':[],
-        'Personal Spending Priority':[]}
+# outputs of list generation functions
+annual_income_list, monthly_income_list = income_list_gen()
+
+location_list, col_index_list, rent_index_list, food_index_list = location_index_list_gen()
+
+housing_p_list = priority_list_gen()
+transportation_p_list = priority_list_gen()
+food_p_list = priority_list_gen()
+utility_p_list = priority_list_gen()
+healthcare_p_list = priority_list_gen()
+savings_p_list = priority_list_gen()
+personal_p_list = priority_list_gen()
+
+data = {'Annual Income': annual_income_list,
+        'Monthly Income':monthly_income_list,
+        'Location':location_list,
+        'Cost of Living Index':col_index_list,
+        'Rent Index':rent_index_list,
+        'Food Index':food_index_list,
+        'Housing Priority':housing_p_list,
+        'Transportation Priority':transportation_p_list,
+        'Food Priority':food_p_list,
+        'Utility Priority':utility_p_list,
+        'Healthcare Priority':healthcare_p_list,
+        'Savings, Investments, Debt Payments Priority':savings_p_list,
+        'Personal Spending Priority':personal_p_list}
 
 
 # EXPORTING TO CSV
-
+#df = pd.DataFrame(data)
 
 # CODE FOR TESTING DATA GEN OUTPUTS
 
@@ -172,7 +177,7 @@ data = {'Annual Income':[],
 # print('Annual Income:', annual_income)
 
 # # converting annual to monthly income 
-# monthly_income = trunc(annual_income/12)
+# monthly_income = floor(annual_income/12)
 # print('Monthly Income:', monthly_income)
 
 # """
@@ -182,7 +187,7 @@ data = {'Annual Income':[],
 #     - food index
 # from numbeo_col.csv
 # """
-# df = pandas.read_csv('/Users/pallavitangirala/Documents/projects'
+# df = pd.read_csv('/Users/pallavitangirala/Documents/projects'
 #                      '/budget-recommender/data/numbeo_col.csv')
 
 # # generating random row number
@@ -196,7 +201,7 @@ data = {'Annual Income':[],
 # print('Rent Index:', df.loc[rand, 'Rent Index'])
 
 # # food index calculated as average of groceries and restaurant index 
-# food_index = trunc((df.loc[rand, 'Groceries Index'] 
+# food_index = floor((df.loc[rand, 'Groceries Index'] 
 #               + df.loc[rand, 'Restaurant Price Index']) / 2)
 # print('Food Index:', food_index)
 
