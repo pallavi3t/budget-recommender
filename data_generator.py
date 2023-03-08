@@ -5,7 +5,7 @@ import random
 import pandas as pd 
 
 # global variables
-SIZE_DATASET = 5
+SIZE_DATASET = 500
 DF_NUMBEO_LOCATION = pd.read_csv('/Users/pallavitangirala/Documents/projects'
                      '/budget-recommender/data/numbeo_col.csv')
 DEBUGGING_MULTIOUT = 0
@@ -58,7 +58,7 @@ def income_list_gen(count=SIZE_DATASET):
     details: uses custom provider from faker to generate incomes
     """
     annual_out = [fake.annual_income() for n in range(count)]
-    monthly_out = [floor(fake.annual_income() / 12) for annual_income in annual_out]
+    monthly_out = [floor(annual_income / 12) for annual_income in annual_out]
 
     if (DEBUGGING_MULTIOUT):
         print(', '.join(str(annual_income) for annual_income in annual_out))
@@ -122,6 +122,7 @@ housing_p_list = priority_list_gen()
 transportation_p_list = priority_list_gen()
 food_p_list = priority_list_gen()
 utility_p_list = priority_list_gen()
+insurance_p_list = priority_list_gen()
 healthcare_p_list = priority_list_gen()
 savings_p_list = priority_list_gen()
 personal_p_list = priority_list_gen()
@@ -136,6 +137,7 @@ data = {'Annual Income': annual_income_list,
         'Transportation Priority':transportation_p_list,
         'Food Priority':food_p_list,
         'Utility Priority':utility_p_list,
+        'Insurance Priority': insurance_p_list,
         'Healthcare Priority':healthcare_p_list,
         'Savings, Investments, Debt Payments Priority':savings_p_list,
         'Personal Spending Priority':personal_p_list}
