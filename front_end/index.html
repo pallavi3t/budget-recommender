@@ -10,30 +10,34 @@
   </head>
   <body>
     <!-- Navbar -->
-    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3">
+    <nav class="navbar navbar-expand-lg bg-dark navbar-dark py-3 fixed-top">
         <div class="container">
-            <a href="#" class="navbar-brand">AI Budget Generator</a>
-
-            <button 
-            class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navmenu">
+          <a href="#" class="navbar-brand">AI Budget Generator</a>
+  
+          <button
+            class="navbar-toggler"
+            type="button"
+            data-bs-toggle="collapse"
+            data-bs-target="#navmenu"
+          >
             <span class="navbar-toggler-icon"></span>
-        </button>
-
-            <div class="collapse navbar-collapse" id="navmenu">
-                <ul class="navbar-nav ms-auto">
-                    <li class="nav-item">
-                        <a href="#learn" class="nav-link">What is a Budget</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#input" class="nav-link">Getting to Know You</a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#results" class="nav-link">Your Results</a>
-                    </li>
-                </ul>
-            </div>
+          </button>
+  
+          <div class="collapse navbar-collapse" id="navmenu">
+            <ul class="navbar-nav ms-auto">
+              <li class="nav-item">
+                <a href="#learn" class="nav-link">What is a Budget</a>
+              </li>
+              <li class="nav-item">
+                <a href="#input" class="nav-link">Getting to Know You</a>
+              </li>
+              <li class="nav-item">
+                <a href="#results" class="nav-link">Your Results</a>
+              </li>
+            </ul>
+          </div>
         </div>
-    </nav>
+      </nav>
 
     <!-- Title block -->
     <section class="bg-dark text-light p-5 text-center text-sm-start">
@@ -47,7 +51,7 @@
                     <!-- <button class="btn btn-info btn-sm">Let's Get Started</button> -->
                     <a href="#learn" class="btn btn-info btn-sm">Let's Get Started</a>
                 </div>
-                <img class="img-fluid w-50 my-3" src="img/savings.svg" alt="">
+                <img class="img-fluid w-50 my-3" src="img/budget.svg" alt="">
             </div>
         </div>
     </section>
@@ -81,10 +85,10 @@
     <section id="input" class="bg-light p-5">
         <div class="container">
             <div class="h2 text-dark text-center mb-4">
-                Let's Get to Know You
+                Let's Get to Know <span class="text-info">You</span>
             </div>
             <div class="row g-4">
-                <div class="col-md">
+                <div class="col-md d-flex align-items-stretch">
                     <div class="card bg-dark text-light">
                         <div class="card-body text-center text-sm-start">
                             <div class="h1 text-center mb-3">
@@ -103,7 +107,7 @@
                                 Location affects cost of living. We will use your location to most effectively allocate money to where you need it most. 
                             </p>
                             <p class="text-center">
-                                <button class="btn btn-info btn-sm ">Enter Information</button>
+                                <button class="btn btn-info btn-sm" data-bs-toggle="modal" data-bs-target="#info">Enter Information</button>
                             </p>
                         </div>
                     </div>
@@ -118,24 +122,24 @@
                                 Budget Priorities
                             </h3>
                             <p class="card-text">
-                                What budget categories do you prioritize? For each category, select "high", "medium", or "low" to indicate what level priority the category is to you.
+                                What budget categories do you prioritize? For each category, enter "1" for high priority, "2" for medium, or "3" for low priority to indicate what personal priority the category is to you.
                             </p>
                             <p class="card-text">
-                                High priority indicates that this category means a lot to you and is one you want to put more of your income in.
+                                High priority (1) indicates that this category means a lot to you and is one you want to put more of your income in.
                             </p>
                             <p class="card-text">
-                                Medium priority indicates that this category neither means a lot nor a little to you. You wish to put an average amount of your income into this category.
+                                Medium priority (2) indicates that this category neither means a lot nor a little to you. You wish to put an average amount of your income into this category.
                             </p>
                             <p class="card-text">
-                                 Low priority indicates you want to spend less on this budget category. You would rather save your income for other budget categories than spend more of it on this one.
+                                 Low priority (3) indicates you want to spend less on this budget category. You would rather save your income for other budget categories than spend more of it on this one.
                             </p>
                             <p class="text-center">
-                                <button class="btn btn-info btn-sm ">Enter Priorities</button>
+                                <button class="btn btn-info btn-sm " data-bs-toggle="modal" data-bs-target="#priority">Enter Priorities</button>
                             </p>
                         </div>
                     </div>
                 </div>
-                <div class="col-md">
+                <!-- <div class="col-md">
                     <div class="card bg-dark text-light">
                         <div class="card-body text-center text-sm-start">
                             <div class="h1 text-center mb-3">
@@ -155,7 +159,7 @@
                             </p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </section>
@@ -167,20 +171,314 @@
             <p class="lead text-center text-dark">
                 Factoring in all the information you provided, here is our personalized budget recommendation for you. 
             </p>
-            <!-- <div class="row g-4">
+            <!-- Housing Budget-->
+            <div class="row g-4">
                 <div class="col-md-6 col-lg-3">
                     <div class="card bg-light">
                         <div class="card-body text-center">
-                            <img src="" alt="">
+                            <img src="img/housing.svg" class="w-50 mb-3" alt="">
+                            <h3 class="card-title mb-3"> Housing Budget</h3>
+                            <h1 class="card-text text-secondary">$100</h1>
+                            <p>A housing budget can include: mortgage or rent, property taxes, household repairs, HOA fees, toiletries, cleaning supplies, household items, and/or tools</p>
                         </div>
                     </div>
                 </div>
-            </div> -->
+                <!-- Transportation Budget-->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <img src="img/transportation.svg" class="w-75 mb-3" alt="">
+                            <h3 class="card-title mb-3"> Transportation Budget</h3>
+                            <h1 class="card-text text-secondary">$100</h1>
+                            <p>A transportation budget can include: car payment, car warranty, gas, tires, maintenance & oil changes, parking fees, repairs, registration & DMV fees, public transportation, and/or ride share</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Food Budget-->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <img src="img/food.svg" class="w-75 mb-3" alt="">
+                            <h3 class="card-title mb-3"> Food Budget</h3>
+                            <h1 class="card-text text-secondary">$100</h1>
+                            <p>A food budget can include: groceries, restaurants & cafes, pet food, food delivery, and/or food services</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Utility Budget-->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <img src="img/utility.svg" class="w-50 mb-3" alt="">
+                            <h3 class="card-title mb-3"> Utility Budget</h3>
+                            <h1 class="card-text text-secondary">$100</h1>
+                            <p>An utility budget can include: electricity, water, garbage, phone, cable, and/or internet</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Insurance Budget-->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <img src="img/insurance.svg" class="w-50 mb-3" alt="">
+                            <h3 class="card-title mb-3"> Insurance Budget</h3>
+                            <h1 class="card-text text-secondary">$100</h1>
+                            <p>An insurance budget can include: health insurance, life insurance, disability insurance, auto insurance, homeowner / renter's insurance, and/or home warantees or protection plans</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Healthcare Budget-->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <img src="img/healthcare.svg" class="w-50 mb-3" alt="">
+                            <h3 class="card-title mb-3"> Healthcare Budget</h3>
+                            <h1 class="card-text text-secondary">$100</h1>
+                            <p>A healthcare budget can include: primary care, dental care, specialty care (dermatologists, orthodontics, optometrists, etc.), urgent care, medication, and/or medical devices</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Savings Budget-->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <img src="img/savings.svg" class="w-75 mb-3" alt="">
+                            <h3 class="card-title mb-3"> Savings, Investments, and Debt Payments Budget</h3>
+                            <h1 class="card-text text-secondary">$100</h1>
+                            <p>A savings, investments, and debt payments budget can include: emergency fund, investments, retirement savings, and/or debt payment savings</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Personal Spending Budget-->
+                <div class="col-md-6 col-lg-3">
+                    <div class="card bg-light">
+                        <div class="card-body text-center">
+                            <img src="img/personal.svg" class="w-50 mb-3" alt="">
+                            <h3 class="card-title mb-3"> Personal Spending Budget</h3>
+                            <h1 class="card-text text-secondary">$100</h1>
+                            <p>A personal spending budget can include: discretionary shopping, gym memberships, entertainment, subscriptions, leisure activity purchases, travel/vacation, and/or haircuts and salon services</p>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
         </div>
     </section>
 
+    <!-- Footer -->
+    <footer class="p-5 bg-dark text-light text-center position-relative">
+        <div class="container">
+            <p class="lead">Copyright &copy; AI Budget Generator</p>
+            <a href="#" class="position-absolute bottom-0 end-0 p-5">
+                <i class="bi bi-arrow-up-circle h1 text-warning"></i>
+            </a>
+        </div>
+    </footer>
+
+    <!-- Basic Information Modal -->
+<div class="modal fade" id="info" tabindex="-1" aria-labelledby="infoLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="infoLabel">Basic Information</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <p class="lead">Fill out your Income and Location.</p>
+
+          <form action="">
+            <div class="mb-3">
+                <label for="annual-income" class="col-form-label">
+                  Annual Income (post-tax)
+                </label>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">$</span>
+                    <input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)" id="annual-income">
+                  </div>
+            </div>
+
+            <div class="mb-3">
+                <label for="location" class="col-form-label">
+                  Location (Input one of the following) 
+                </label>
+                <ul>
+                    <li>Albuquerque, NM</li>
+                    <li>Anchorage, AK</li> 
+                    <li> Atlanta, GA</li>  
+                    <li>Austin, TX</li>   
+                    <li>Baltimore, MD</li> 
+                    <li>Birmingham, AL</li>   
+                    <li>Boise, ID</li>
+                    <li>Boston, MA</li>  
+                    <li>Buffalo, NY</li> 
+                    <li>Charlotte, NC</li> 
+                    <li>Chattanooga, TN</li>  
+                    <li>Chicago, IL</li> 
+                    <li>Cincinnati, OH</li>  
+                    <li>Cleveland, OH</li>  
+                    <li>Colorado Springs, CO</li> 
+                    <li>Columbus, OH</li>  
+                    <li>Dallas, TX</li>  
+                    <li>Denver, CO</li> 
+                    <li>Detroit, MI</li> 
+                    <li>Fort Lauderdale, FL</li> 
+                    <li>Fort Worth, TX</li>  
+                    <li>Greenville, SC</li> 
+                    <li>Honolulu, HI</li> 
+                    <li>Houston, TX</li> 
+                    <li>Huntsville, AL</li> 
+                    <li>Indianapolis, IN</li> 
+                    <li>Jacksonville, FL</li> 
+                    <li>Kansas City, MO</li> 
+                    <li>Knoxville, TN</li>  
+                    <li>Las Vegas, NV</li> 
+                    <li>Los Angeles, CA</li> 
+                    <li>Louisville, KY</li>  
+                    <li>Madison, WI</li> 
+                    <li>Memphis, TN</li> 
+                    <li>Miami, FL</li> 
+                    <li>Milwaukee, WI</li> 
+                    <li>Minneapolis, MN</li> 
+                    <li>Nashville, TN</li> 
+                    <li>New Orleans, LA</li> 
+                    <li>New York, NY</li> 
+                    <li>Oakland, CA</li> 
+                    <li>Oklahoma City, OK</li> 
+                    <li>Omaha, NE</li> 
+                    <li>Orlando, FL</li>  
+                    <li>Philadelphia, PA</li> 
+                    <li>Phoenix, AZ</li> 
+                    <li>Pittsburgh, PA</li> 
+                    <li>Portland, OR</li> 
+                    <li>Raleigh, NC</li> 
+                    <li>Reno, NV</li> 
+                    <li>Richmond, VA</li> 
+                    <li>Sacramento, CA</li> 
+                    <li>Saint Louis, MO</li> 
+                    <li>Saint Paul, MN</li> 
+                    <li>Salt Lake City, UT</li> 
+                    <li>San Antonio, TX</li>  
+                    <li>San Diego, CA</li> 
+                    <li>San Francisco, CA</li> 
+                    <li>San Jose, CA</li> 
+                    <li>Santa Barbara, CA</li> 
+                    <li>Seattle, WA</li> 
+                    <li>Spokane, WA</li> 
+                    <li>Tampa, FL</li> 
+                    <li>Tucson, AZ</li> 
+                    <li>Tulsa, OK</li> 
+                    <li>Washington, DC</li> 
+                </ul>
+                <div class="input-group mb-3">
+                    <span class="input-group-text">City</span>
+                    <input type="text" class="form-control" id="location">
+                </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<!-- Budget Priorities Modal -->
+<div class="modal fade" id="priority" tabindex="-1" aria-labelledby="priorityLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="priority">Modal title</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+            <div class="modal-body">
+                <p class="lead">Fill out your Priorities on a scale of 1 to 3.</p>
+                <form action="">
+                  <div class="mb-3">
+                        <label for="priority" class="col-form-label">
+                            Housing Budget Priority
+                        </label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" id="housing-priority">
+                        </div>
+
+                        <label for="priority" class="col-form-label">
+                            Transportation Budget Priority
+                        </label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" id="transportation-priority">
+                        </div>
+
+                        <label for="priority" class="col-form-label">
+                            Food Budget Priority
+                        </label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" id="food-priority">
+                        </div>
+
+                        <label for="priority" class="col-form-label">
+                            Utility Budget Priority
+                        </label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" id="utility-priority">
+                        </div>
+
+                        <label for="priority" class="col-form-label">
+                            Insurance Budget Priority
+                        </label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" id="insurance-priority">
+                        </div>
+
+                        <label for="priority" class="col-form-label">
+                            Healthcare Budget Priority
+                        </label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" id="healthcare-priority">
+                        </div>
+
+                        <label for="priority" class="col-form-label">
+                            Savings, Investments, and Debt Payments Budget Priority
+                        </label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" id="savings-priority">
+                        </div>
+
+                        <label for="priority" class="col-form-label">
+                            Personal Spending Budget Priority
+                        </label>
+                        <div class="input-group mb-3">
+                          <input type="text" class="form-control" id="personal-priority">
+                        </div>
+
+                  </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-warning">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
     <script 
     src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous">
-</script>
+    </script>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script> 
   </body>
 </html>
