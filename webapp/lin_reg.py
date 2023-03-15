@@ -57,7 +57,7 @@ if (FEATURE_EVALUATION):
                     data=df_model_data)
     plt.show()
 
-def get_basic_user_info():
+def get_basic_user_info(input_income, user_location):
     """
     purpose: to get basic lifestyle info from the user 
     input: NA
@@ -66,16 +66,17 @@ def get_basic_user_info():
     details: this will be changed to taking input from front end
     """
     # get user annual income
-    user_annual_income = float(input(
-        "What is your annual income (Post-tax)? "))
+    # user_annual_income = float(input(
+    #     "What is your annual income (Post-tax)? "))
+    user_annual_income = float(input_income)
     user_monthly_income = math.trunc(user_annual_income/12)
 
     # get user location (city, state abbrveation)
-    print("Where are you living? Pick one of the following: ")
-    print(df_location_data['City'].to_string(index=False))
-    user_location = input("Location:" ) # have dropdown for this in ui
-    while (user_location not in df_location_data['City'].values):
-        user_location = input("Sorry! Please pick a city from the list: ")
+    # print("Where are you living? Pick one of the following: ")
+    # print(df_location_data['City'].to_string(index=False))
+    # user_location = input("Location:" ) # have dropdown for this in ui
+    # while (user_location not in df_location_data['City'].values):
+    #     user_location = input("Sorry! Please pick a city from the list: ")
 
     # find location indices based on city
     # user's cost of living index
@@ -205,123 +206,123 @@ def linear_normalization(budgets, monthly_income):
 """
     ** MAIN ** 
 """
-# get user information and budget priorities
-basic_user_info = get_basic_user_info() # [monthly income, col index, rent index, food index]
-user_priorities = get_user_priorities()
+# # get user information and budget priorities
+# basic_user_info = get_basic_user_info() # [monthly income, col index, rent index, food index]
+# user_priorities = get_user_priorities()
 
-"""
-budget generation
-"""
-# HOUSING BUDGET GENERATION
-desired_output = HOUSING_BUDGET
-relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
+# """
+# budget generation
+# """
+# # HOUSING BUDGET GENERATION
+# desired_output = HOUSING_BUDGET
+# relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
 
-if (DEBUG):
-    print(relevant_features[0], relevant_features[1], relevant_features[2])
-    print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
+# if (DEBUG):
+#     print(relevant_features[0], relevant_features[1], relevant_features[2])
+#     print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
 
-housing_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
+# housing_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
 
-# TRANSPORTATION BUDGET GENERATION
-desired_output = TRANSPORTATION_BUDGET
-relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
+# # TRANSPORTATION BUDGET GENERATION
+# desired_output = TRANSPORTATION_BUDGET
+# relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
 
-if (DEBUG):
-    print(relevant_features[0], relevant_features[1], relevant_features[2])
-    print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
+# if (DEBUG):
+#     print(relevant_features[0], relevant_features[1], relevant_features[2])
+#     print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
 
-transportation_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
+# transportation_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
 
-# FOOD BUDGET GENERATION
-desired_output = FOOD_BUDGET
-relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
+# # FOOD BUDGET GENERATION
+# desired_output = FOOD_BUDGET
+# relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
 
-if (DEBUG):
-    print(relevant_features[0], relevant_features[1], relevant_features[2])
-    print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
+# if (DEBUG):
+#     print(relevant_features[0], relevant_features[1], relevant_features[2])
+#     print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
 
-food_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
+# food_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
 
-# UTILITY BUDGET GENERATION
-desired_output = UTILITY_BUDGET
-relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
+# # UTILITY BUDGET GENERATION
+# desired_output = UTILITY_BUDGET
+# relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
 
-if (DEBUG):
-    print(relevant_features[0], relevant_features[1], relevant_features[2])
-    print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
+# if (DEBUG):
+#     print(relevant_features[0], relevant_features[1], relevant_features[2])
+#     print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
 
-utility_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
+# utility_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
     
-# INSURANCE BUDGET GENERATION
-desired_output = INSURANCE_BUDGET
-relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
+# # INSURANCE BUDGET GENERATION
+# desired_output = INSURANCE_BUDGET
+# relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
 
-if (DEBUG):
-    print(relevant_features[0], relevant_features[1], relevant_features[2])
-    print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
+# if (DEBUG):
+#     print(relevant_features[0], relevant_features[1], relevant_features[2])
+#     print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
 
-insurance_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
-
-
-# HEALTHCARE BUDGET GENERATION
-desired_output = HEALTHCARE_BUDGET
-relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
-
-if (DEBUG):
-    print(relevant_features[0], relevant_features[1], relevant_features[2])
-    print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
-
-healthcare_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
+# insurance_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
 
 
-# SAVINGS, INVESTMENTS, DEBTS BUDGET GENERATION
-desired_output = SAVINGS_BUDGET
-relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
+# # HEALTHCARE BUDGET GENERATION
+# desired_output = HEALTHCARE_BUDGET
+# relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
 
-if (DEBUG):
-    print(relevant_features[0], relevant_features[1], relevant_features[2])
-    print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
+# if (DEBUG):
+#     print(relevant_features[0], relevant_features[1], relevant_features[2])
+#     print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
 
-savings_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
+# healthcare_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
+
+
+# # SAVINGS, INVESTMENTS, DEBTS BUDGET GENERATION
+# desired_output = SAVINGS_BUDGET
+# relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
+
+# if (DEBUG):
+#     print(relevant_features[0], relevant_features[1], relevant_features[2])
+#     print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
+
+# savings_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
     
 
-# PERSONAL SPENDING BUDGET GENERATION
-desired_output = PERSONAL_SPENDING_BUDGET
-relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
+# # PERSONAL SPENDING BUDGET GENERATION
+# desired_output = PERSONAL_SPENDING_BUDGET
+# relevant_features, relevant_user_info = find_relevant_info(basic_user_info, user_priorities, desired_output)
 
-if (DEBUG):
-    print(relevant_features[0], relevant_features[1], relevant_features[2])
-    print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
+# if (DEBUG):
+#     print(relevant_features[0], relevant_features[1], relevant_features[2])
+#     print(relevant_user_info[0], relevant_user_info[1], relevant_user_info[2])
 
-personal_spending_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
+# personal_spending_output = multilin_reg(desired_output, relevant_features, relevant_user_info)
 
-"""
-refining and displaying budgets
-"""
-# make budget sum to monthly income
-budget_outputs = [housing_output, transportation_output, 
-                  food_output, utility_output, insurance_output, healthcare_output,
-                  savings_output, personal_spending_output]
-user_monthly_income = relevant_user_info[0]
+# """
+# refining and displaying budgets
+# """
+# # make budget sum to monthly income
+# budget_outputs = [housing_output, transportation_output, 
+#                   food_output, utility_output, insurance_output, healthcare_output,
+#                   savings_output, personal_spending_output]
+# user_monthly_income = relevant_user_info[0]
 
-# rounding to the nearest int
-adjusted_budgets = linear_normalization(budget_outputs, user_monthly_income)
-housing_final = int(adjusted_budgets[HOUSING_INDEX])
-transportation_final = int(adjusted_budgets[TRANSPORTATION_INDEX])
-food_final = int(adjusted_budgets[FOOD_INDEX])
-utility_final = int(adjusted_budgets[UTILITY_INDEX])
-insurance_final = int(adjusted_budgets[INSURANCE_INDEX])
-healthcare_final = int(adjusted_budgets[HEALTHCARE_INDEX])
-savings_final = int(adjusted_budgets[SAVINGS_INDEX])
-personal_spending_final = int(adjusted_budgets[PERSONAL_SPENDING_INDEX])
+# # rounding to the nearest int
+# adjusted_budgets = linear_normalization(budget_outputs, user_monthly_income)
+# housing_final = int(adjusted_budgets[HOUSING_INDEX])
+# transportation_final = int(adjusted_budgets[TRANSPORTATION_INDEX])
+# food_final = int(adjusted_budgets[FOOD_INDEX])
+# utility_final = int(adjusted_budgets[UTILITY_INDEX])
+# insurance_final = int(adjusted_budgets[INSURANCE_INDEX])
+# healthcare_final = int(adjusted_budgets[HEALTHCARE_INDEX])
+# savings_final = int(adjusted_budgets[SAVINGS_INDEX])
+# personal_spending_final = int(adjusted_budgets[PERSONAL_SPENDING_INDEX])
 
-# printing all the budgets
-print(HOUSING_BUDGET,": $", housing_final)
-print(TRANSPORTATION_BUDGET,": $", transportation_final)
-print(FOOD_BUDGET,": $", food_final)
-print(UTILITY_BUDGET, ": $", utility_final)
-print(INSURANCE_BUDGET, ": $", insurance_final)
-print(HEALTHCARE_BUDGET, ": $", healthcare_final)
-print(SAVINGS_BUDGET, ": $", savings_final)
-print(PERSONAL_SPENDING_BUDGET, ": $", personal_spending_final)
+# # printing all the budgets
+# print(HOUSING_BUDGET,": $", housing_final)
+# print(TRANSPORTATION_BUDGET,": $", transportation_final)
+# print(FOOD_BUDGET,": $", food_final)
+# print(UTILITY_BUDGET, ": $", utility_final)
+# print(INSURANCE_BUDGET, ": $", insurance_final)
+# print(HEALTHCARE_BUDGET, ": $", healthcare_final)
+# print(SAVINGS_BUDGET, ": $", savings_final)
+# print(PERSONAL_SPENDING_BUDGET, ": $", personal_spending_final)
 
