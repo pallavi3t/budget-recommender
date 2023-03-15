@@ -34,9 +34,9 @@ def basicinfo():
         savings_priority = int(request.form['savings'])
         personal_priority = int(request.form['personal'])
         priorities_array = [housing_priority, transportation_priority, food_priority, utility_priority, insurance_priority, healthcare_priority, savings_priority, personal_priority]
-        print(income)
-        print(location)
-        print(housing_priority, transportation_priority, food_priority, utility_priority, insurance_priority, healthcare_priority, savings_priority, personal_priority)
+        # print(income)
+        # print(location)
+        # print(housing_priority, transportation_priority, food_priority, utility_priority, insurance_priority, healthcare_priority, savings_priority, personal_priority)
 
         # applying the ml model
         # finding basic info
@@ -88,14 +88,14 @@ def basicinfo():
         savings_final = int(adjusted_budgets[6])
         personal_final = int(adjusted_budgets[7])
         
-        print('HOUSING FINAL', housing_final)
-        print('TRANSPORTATION FINAL', transportation_final)
-        print('FOOD FINAL', food_final)
-        print('UTILITY FINAL', utility_final)
-        print('INSURANCE FINAL', insurance_final)
-        print('HEALTHCARE FINAL', healthcare_final)
-        print('SAVINGS FINAL', savings_final)
-        print('PERSONAL SPENDING FINAL', personal_final)
+        # print('HOUSING FINAL', housing_final)
+        # print('TRANSPORTATION FINAL', transportation_final)
+        # print('FOOD FINAL', food_final)
+        # print('UTILITY FINAL', utility_final)
+        # print('INSURANCE FINAL', insurance_final)
+        # print('HEALTHCARE FINAL', healthcare_final)
+        # print('SAVINGS FINAL', savings_final)
+        # print('PERSONAL SPENDING FINAL', personal_final)
 
         finals = [housing_final, transportation_final, food_final, utility_final, insurance_final, healthcare_final, savings_final, personal_final]
 
