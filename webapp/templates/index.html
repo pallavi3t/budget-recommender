@@ -179,7 +179,7 @@
                         <div class="card-body text-center">
                             <img src="static/housing.svg" class="w-50 mb-3" alt="">
                             <h3 class="card-title mb-3"> Housing Budget</h3>
-                            <h1 class="card-text text-secondary">$100</h1>
+                            <h1 class="card-text text-secondary" id="housingref"></h1>
                             <p>A housing budget can include: mortgage or rent, property taxes, household repairs, HOA fees, toiletries, cleaning supplies, household items, and/or tools</p>
                         </div>
                     </div>
@@ -190,7 +190,7 @@
                         <div class="card-body text-center">
                             <img src="static/transportation.svg" class="w-75 mb-3" alt="">
                             <h3 class="card-title mb-3"> Transportation Budget</h3>
-                            <h1 class="card-text text-secondary">$100</h1>
+                            <h1 class="card-text text-secondary" id="transportationref"></h1>
                             <p>A transportation budget can include: car payment, car warranty, gas, tires, maintenance & oil changes, parking fees, repairs, registration & DMV fees, public transportation, and/or ride share</p>
                         </div>
                     </div>
@@ -201,7 +201,7 @@
                         <div class="card-body text-center">
                             <img src="static/food.svg" class="w-75 mb-3" alt="">
                             <h3 class="card-title mb-3"> Food Budget</h3>
-                            <h1 class="card-text text-secondary">$100</h1>
+                            <h1 class="card-text text-secondary" id="foodref"></h1>
                             <p>A food budget can include: groceries, restaurants & cafes, pet food, food delivery, and/or food services</p>
                         </div>
                     </div>
@@ -212,7 +212,7 @@
                         <div class="card-body text-center">
                             <img src="static/utility.svg" class="w-50 mb-3" alt="">
                             <h3 class="card-title mb-3"> Utility Budget</h3>
-                            <h1 class="card-text text-secondary">$100</h1>
+                            <h1 class="card-text text-secondary" id="utilityref"></h1>
                             <p>An utility budget can include: electricity, water, garbage, phone, cable, and/or internet</p>
                         </div>
                     </div>
@@ -224,7 +224,7 @@
                         <div class="card-body text-center">
                             <img src="static/insurance.svg" class="w-50 mb-3" alt="">
                             <h3 class="card-title mb-3"> Insurance Budget</h3>
-                            <h1 class="card-text text-secondary">$100</h1>
+                            <h1 class="card-text text-secondary" id="insuranceref"></h1>
                             <p>An insurance budget can include: health insurance, life insurance, disability insurance, auto insurance, homeowner / renter's insurance, and/or home warantees or protection plans</p>
                         </div>
                     </div>
@@ -236,7 +236,7 @@
                         <div class="card-body text-center">
                             <img src="static/healthcare.svg" class="w-50 mb-3" alt="">
                             <h3 class="card-title mb-3"> Healthcare Budget</h3>
-                            <h1 class="card-text text-secondary">$100</h1>
+                            <h1 class="card-text text-secondary" id="healthcareref"></h1>
                             <p>A healthcare budget can include: primary care, dental care, specialty care (dermatologists, orthodontics, optometrists, etc.), urgent care, medication, and/or medical devices</p>
                         </div>
                     </div>
@@ -248,7 +248,7 @@
                         <div class="card-body text-center">
                             <img src="static/savings.svg" class="w-75 mb-3" alt="">
                             <h3 class="card-title mb-3"> Savings, Investments, and Debt Payments Budget</h3>
-                            <h1 class="card-text text-secondary">$100</h1>
+                            <h1 class="card-text text-secondary" id="savingsref"></h1>
                             <p>A savings, investments, and debt payments budget can include: emergency fund, investments, retirement savings, and/or debt payment savings</p>
                         </div>
                     </div>
@@ -260,7 +260,7 @@
                         <div class="card-body text-center">
                             <img src="static/personal.svg" class="w-50 mb-3" alt="">
                             <h3 class="card-title mb-3"> Personal Spending Budget</h3>
-                            <h1 class="card-text text-secondary">$100</h1>
+                            <h1 class="card-text text-secondary" id="personalref"></h1>
                             <p>A personal spending budget can include: discretionary shopping, gym memberships, entertainment, subscriptions, leisure activity purchases, travel/vacation, and/or haircuts and salon services</p>
                         </div>
                     </div>
@@ -292,7 +292,7 @@
         <div class="modal-body">
           <p class="lead">Fill out your Income and Location.</p>
 
-          <form action='/basicinfo', method="post">
+          <form action='/input', method="post">
             <!-- <div class="mb-3"> -->
                 <!-- <label for="annual-income" class="col-form-label"> -->
                 <label>Annual Income (post-tax)</label>
@@ -495,12 +495,6 @@
                 if (user_income != '' && user_location != '')
                 {
 
-                    $.ajax({
-                        url:"/basicinfo",
-                        method: "POST",
-                        data:{user_income:user_income, user_location: user_location}
-                    });
-
                     if (!locations.includes(user_location)){
                         alert("Invalid location, enter a location given.");
                     }
@@ -518,6 +512,10 @@
 <script>
     $(document).ready(function(){
        $('#submit_priority').click(function(){
+
+            var user_income = $('#annualincome').val();
+
+            var user_location = $('#userlocation').val();
 
             var housing_p = $('#housing-priority').val();
 
@@ -543,9 +541,21 @@
             {
 
                 $.ajax({
-                    url:"/priorities",
+                    url:"/input",
                     method: "POST",
-                    data:{housing:housing_p, transportation:transportation_p, food:food_p, utility:utility_p, insurance:insurance_p, healthcare:healthcare_p, savings:savings_p, personal:personal_p}
+                    data:{user_income:user_income, user_location: user_location, housing:housing_p, transportation:transportation_p, food:food_p, utility:utility_p, insurance:insurance_p, healthcare:healthcare_p, savings:savings_p, personal:personal_p},
+                    success: function(data){
+
+                        $('#housingref').html("$" + data[0]);
+                        $('#transportationref').html("$" + data[1]);
+                        $('#foodref').html("$" + data[2]);
+                        $('#utilityref').html("$" + data[3]);
+                        $('#insuranceref').html("$" + data[4]);
+                        $('#healthcareref').html("$" + data[5]);
+                        $('#savingsref').html("$" + data[6]);
+                        $('#personalref').html("$" + data[7]);
+                        
+                    }
                 });
 
 
